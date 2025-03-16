@@ -15,6 +15,7 @@ export default class AboutPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.title.setTitle('About')
+    this.meta.addTag({ name: 'og:title', content: 'About' })
     this.meta.addTag({ name: 'description', content: 'Este es mi about page' })
 
     if (!isPlatformServer(this.platform)) {
