@@ -28,7 +28,6 @@ export class PokemonService {
           }))
           return simplePokemons
         }),
-        tap(console.log)
       )
   }
 

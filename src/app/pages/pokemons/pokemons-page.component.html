@@ -11,6 +11,6 @@
 }
 
 <div class="flex justify-evenly">
-    <button class="mt-2 " (click)="loadPokemons(-1)">Anterior</button>
-    <button class="mt-2 " (click)="loadPokemons(+1)">Siguiente</button>
+    <button class="mt-2 " [disabled]="currentPage() === 1" [routerLink]="['/pokemons/page', currentPage()! -1]">Anterior</button>
+    <button class="mt-2 " [routerLink]="['/pokemons/page', currentPage()! +1]">Siguiente</button>
 </div>
