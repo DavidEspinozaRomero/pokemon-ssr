@@ -36,7 +36,6 @@ export default class PokemonsPageComponent {
   ))
 
   loadOnPageChange = effect(() => {
-    console.log('currentPage', this.currentPage());
     this.loadPokemons(this.currentPage())
   })
 
