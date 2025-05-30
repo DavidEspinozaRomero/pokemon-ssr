@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PokemonPageComponent } from './pokemon-page.component';
+import PokemonPageComponent from './pokemon-page.component';
 
 describe('PokemonPageComponent', () => {
   let component: PokemonPageComponent;

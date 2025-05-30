@@ -13,6 +13,11 @@ export class PokemonService {
   private http = inject(HttpClient)
   // https://pokeapi.co/api/v2/pokemon?offset=20&limit=20
   #BASEURL = 'https://pokeapi.co/api/v2/pokemon'
+  
+  public get baseURL() : string {
+    return this.#BASEURL; 
+  }
+  
   constructor() { }
 
   loadPage(page: number): Observable<SimplePokemon[]> {
