@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { catchError, map, Observable, of, tap, throwError } from 'rxjs';
+
 import { SimplePokemon } from '../interfaces/simple-pokemon.interface';
 import { pokemonApiResponse } from '../interfaces/pokemon-api.response';
 import { Pokemon } from '../interfaces/pokemon.interface';
@@ -13,11 +14,11 @@ export class PokemonService {
   private http = inject(HttpClient)
   // https://pokeapi.co/api/v2/pokemon?offset=20&limit=20
   #BASEURL = 'https://pokeapi.co/api/v2/pokemon'
-  
-  public get baseURL() : string {
-    return this.#BASEURL; 
+
+  public get baseURL(): string {
+    return this.#BASEURL;
   }
-  
+
   constructor() { }
 
   loadPage(page: number): Observable<SimplePokemon[]> {
@@ -38,6 +39,20 @@ export class PokemonService {
 
   getPokemon(id: string) {
     const url = this.#BASEURL + '/' + id
-    return this.http.get<Pokemon>(url)
+    return this.http.get<Pokemon>(url).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      console.log('A client-side or network error occurred.  No response from the server.', error.error);
+    } else {
+      console.log(`The backend returned an unsuccessful response code: ${error.status}, body:`, error.error);
+    }
+
+    const errorMessage = error.error ?? "An error occurred";
+
+    return throwError(() => new Error(errorMessage));
   }
 }
